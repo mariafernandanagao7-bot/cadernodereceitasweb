@@ -1,7 +1,11 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/Button';
-import { logoImage, tartImage } from '@/lib/recipe-images';
+import logoAsset from '@/assets/recipe-logo.asset.json';
+import tartAsset from '@/assets/recipe-tart.asset.json';
+
+const logoImage = logoAsset.url;
+const tartImage = tartAsset.url;
 
 export const Route = createFileRoute('/')({
   head: () => ({ meta: [
@@ -11,8 +15,6 @@ export const Route = createFileRoute('/')({
     { property: 'og:description', content: 'Receita de torta com massa sablée, frutas frescas e preparo passo a passo.' },
     { property: 'og:type', content: 'website' },
     { name: 'twitter:card', content: 'summary_large_image' },
-    { property: 'og:image', content: tartImage },
-    { name: 'twitter:image', content: tartImage },
   ] }),
   component: RecipePage,
 });
@@ -40,7 +42,7 @@ const steps = [
   { title: 'Forno e Ponto Dourado', text: <>Asse em forno pré-aquecido a <strong>180°C por aproximadamente 35 minutos</strong>. A borda da torta deve ficar dourada e crocante, e a calda central das frutas deve começar a borbulhar suavemente.</>, timer: { minutes: 35, label: 'Temporizador de Forno (180°C)', icon: 'local_fire_department' }, note: 'Verifique os últimos 5 minutos' },
   { title: 'Finalização e Servir', text: <>Retire do forno e deixe esfriar sobre uma grade por pelo menos 15 minutos antes de desenformar. Guarneça com folhinhas de hortelã fresca e polvilhe uma nuvem suave de açúcar de confeiteiro sobre as bordas. Sirva morna com sorvete de baunilha ou creme chantilly fresco.</>, note: 'Pronta para encantar!' },
 ];
-function Icon({ children, className = '' }: { children: string; className?: string }) { return <span aria-hidden="true" className={`material-symbols-outlined ${className}`}>{children}</span>; }
+function Icon({ children, className = '' }: { children?: string; className?: string }) { return <span aria-hidden="true" className={`material-symbols-outlined ${className}`}>{children}</span>; }
 function formatQuantity(amount: number, unit: string, servings: number) {
   if (!amount) return unit;
   const n = amount * servings / 4;
